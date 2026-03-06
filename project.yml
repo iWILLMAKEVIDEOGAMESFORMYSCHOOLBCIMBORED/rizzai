@@ -1,0 +1,84 @@
+name: RizzAI
+options:
+  bundleIdPrefix: com.rizzai
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15"
+  generateEmptyDirectories: true
+  usesTabs: false
+  indentWidth: 4
+  tabWidth: 4
+
+settings:
+  base:
+    SWIFT_VERSION: 5.9
+    IPHONEOS_DEPLOYMENT_TARGET: 17.0
+    DEVELOPMENT_TEAM: ""  # ← FILL IN YOUR APPLE DEVELOPER TEAM ID
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  RizzAI:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: RizzAI
+    resources:
+      - path: RizzAI/Assets.xcassets
+    info:
+      path: RizzAI/Info.plist
+      properties:
+        CFBundleDisplayName: Rizz AI
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIUserInterfaceStyle: Automatic
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+    entitlements:
+      path: RizzAI/RizzAI.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rizzai.app
+        INFOPLIST_FILE: RizzAI/Info.plist
+        CODE_SIGN_ENTITLEMENTS: RizzAI/RizzAI.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_VERSION: 5.9
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
+
+  RizzAIKeyboard:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: RizzAIKeyboard
+    info:
+      path: RizzAIKeyboard/Info.plist
+      properties:
+        CFBundleDisplayName: RizzAI
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        NSExtension:
+          NSExtensionAttributes:
+            IsASCIICapable: false
+            PrefersRightToLeft: false
+            PrimaryLanguage: en-US
+            RequestsOpenAccess: true
+          NSExtensionPointIdentifier: com.apple.keyboard-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+    entitlements:
+      path: RizzAIKeyboard/RizzAIKeyboard.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rizzai.app.keyboard
+        INFOPLIST_FILE: RizzAIKeyboard/Info.plist
+        CODE_SIGN_ENTITLEMENTS: RizzAIKeyboard/RizzAIKeyboard.entitlements
+        SWIFT_VERSION: 5.9
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../../Frameworks"
+    dependencies:
+      - target: RizzAI
+        embed: false
